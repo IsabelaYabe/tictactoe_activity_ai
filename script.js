@@ -3,6 +3,9 @@
 // WINNING_COMBOS, checkWinner, getNextPlayer, applyMove, createInitialState
 // are provided by game.js, loaded before this script.
 
+// Map internal symbols (X/O) to display emojis
+const SYMBOLS = { X: '🐱', O: '🐶' };
+
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
@@ -11,14 +14,17 @@ let state = createInitialState();
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
-    cell.disabled    = state.board[i] !== '' || state.gameOver;
+    const value = state.board[i];
+    cell.textContent = value ? SYMBOLS[value] : '';
+    cell.className   = 'cell' + (value ? ` ${value.toLowerCase()}` : '');
+    cell.disabled    = value !== '' || state.gameOver;
   });
 }
 
 function setStatus(msg, cls = '') {
-  status.textContent = msg;
+  // Replace internal X/O with display emojis in status messages
+  const displayMsg = msg.replace('X', SYMBOLS.X).replace('O', SYMBOLS.O);
+  status.textContent = displayMsg;
   status.className   = 'status' + (cls ? ` ${cls}` : '');
 }
 
