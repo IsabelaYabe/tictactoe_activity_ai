@@ -8,10 +8,19 @@ const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
 
 let state = createInitialState();
+let scores = [0, 0]
+const scoreX = document.getElementById('score-x');
+const scoreO = document.getElementById('score-o');
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
+    if (state.board[i] === 'X'){
+      cell.textContent = '🐱'
+    } else if (state.board[i] === 'O'){
+      cell.textContent = '🐶'
+    } else {
+      cell.textContent = state.board[i]
+    }
     cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
@@ -40,7 +49,15 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      if (result.winner === "X") {
+        setStatus(`Player 🐱 wins!`, 'win');
+        scores[0]++;
+        scoreX.textContent = scores[0];
+      } else {
+        setStatus(`Player 🐶 wins!`, 'win');
+        scores[1]++;
+        scoreO.textContent = scores[1];
+      }
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +67,14 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  if (state.current === 'X') setStatus(`Player 🐱's turn`);
+  else setStatus(`Player 🐶's turn`)
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`Player 🐱's turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +82,4 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+setStatus(`Player 🐱's turn`);
