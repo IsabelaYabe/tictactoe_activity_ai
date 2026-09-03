@@ -6,17 +6,21 @@
 If present, use `.github/agents/brainsback-reviewer.md` as the review rubric.
 
 ## Snapshot
-- **Change**: 
-- **Status**: 
+- **Change**: Substituição dos símbolos X/O por 🐱/🐶 na interface do jogo da velha.
+- **Status**: Completo e verificado.
 
 ## The Changes
-- [ ] 
+- [x] **`script.js`** — Adicionado mapa `SYMBOLS = { X: '🐱', O: '🐶' }` e modificadas as funções `render()` e `setStatus()` para traduzir os símbolos internos (`X`/`O`) para os emojis na exibição.
+- `game.js` — **Não foi alterado.** A lógica pura do jogo continua usando `'X'`/`'O'` internamente, preservando os testes existentes.
 
 ## Testing Strategy
-_How we ensured it works._
+- Todos os **31 testes unitários** do `game.js` passaram (testados via `tests.html`).
+- Teste visual no navegador confirmou:
+  - Status inicial: "Player 🐱's turn"
+  - Jogadas exibindo 🐱 e 🐶 nas células
+  - Alternância correta de turnos
+  - Mensagem de vitória: "Player 🐱 wins!"
+  - Botão "New Game" reinicia corretamente
 
 ## Risks & Follow-up
-- [ ] 
-
----
-**Note**: Usually filled by the AI.
+- [ ] Nenhum risco identificado. A mudança é puramente na camada de apresentação (`script.js`), sem tocar na lógica do jogo.
