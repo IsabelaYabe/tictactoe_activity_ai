@@ -3,15 +3,28 @@
 // WINNING_COMBOS, checkWinner, getNextPlayer, applyMove, createInitialState
 // are provided by game.js, loaded before this script.
 
-const cells    = document.querySelectorAll('.cell');
-const status   = document.getElementById('status');
-const restartBtn     = document.getElementById('restart');
+/** Maps internal player identifiers to display emojis. */
+function getSymbol(player) {
+  return player === 'X' ? '🐱' : '🐶';
+}
+
+const cells        = document.querySelectorAll('.cell');
+const status       = document.getElementById('status');
+const restartBtn   = document.getElementById('restart');
+const scoreElX     = document.getElementById('score-x');
+const scoreElO     = document.getElementById('score-o');
 
 let state = createInitialState();
+let scores = { X: 0, O: 0 };
+
+function updateScoreboard() {
+  scoreElX.textContent = scores.X;
+  scoreElO.textContent = scores.O;
+}
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
+    cell.textContent = state.board[i] ? getSymbol(state.board[i]) : '';
     cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
@@ -40,7 +53,9 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      setStatus(`Player ${getSymbol(result.winner)} wins!`, 'win');
+      scores[result.winner]++;
+      updateScoreboard();
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +65,14 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`Player ${getSymbol(state.current)}'s turn`);
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  updateScoreboard();
+  setStatus(`Player ${getSymbol(state.current)}'s turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +80,5 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+updateScoreboard();
+setStatus(`Player ${getSymbol(state.current)}'s turn`);
