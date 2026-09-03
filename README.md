@@ -3,10 +3,18 @@
 Este projeto é parte de uma pesquisa educacional para investigar a **dívida cognitiva no desenvolvimento de software utilizando IA Generativa**.
 
 ## 📄 Termo de Consentimento
-O termo de consentimento foi preenchido via Google Forms. Se você ainda não o preencheu, solicite o link ao professor responsável antes de iniciar o experimento.
+O termo de consentimento deve ser preenchido via Google Forms. Se você ainda não o preencheu, abra-o através do QRCode logo abaixo.
 
 ## 🛠️ Configuração Inicial (Fork e Upstream)
 Para iniciar o trabalho, você deve criar a sua própria versão (fork) do repositório base.
+
+<div align="center">
+
+| QR Code - Formulário de Consentimento | QR Code - Repositório Original |
+|:---:|:---:|
+| [![QR Code - Formulário de Consentimento](.__tools__/qrcode_forms_consentimento.jpg)](https://forms.gle/JBHF8vjyvigj5m1G9) | [![QR Code - Repositório Original](.__tools__/qrcode_repositorio.jpg)](https://github.com/IsabelaYabe/tictactoe_activity_ai) |
+
+</div>
 
 1. Acesse o repositório original e clique no botão **Fork**:
    [https://github.com/IsabelaYabe/tictactoe_activity_ai](https://github.com/IsabelaYabe/tictactoe_activity_ai)
