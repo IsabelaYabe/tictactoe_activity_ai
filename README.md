@@ -2,9 +2,6 @@
 
 Este projeto é parte de uma pesquisa educacional para investigar a **dívida cognitiva no desenvolvimento de software utilizando IA Generativa**.
 
-## 📄 Termo de Consentimento
-O termo de consentimento foi preenchido via Google Forms. Se você ainda não o preencheu, solicite o link ao professor responsável antes de iniciar o experimento.
-
 ## 🛠️ Configuração Inicial (Fork e Upstream)
 Para iniciar o trabalho, você deve criar a sua própria versão (fork) do repositório base.
 
