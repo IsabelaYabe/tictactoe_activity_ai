@@ -8,8 +8,11 @@ const EMOJI_MAP = { X: '🐱', O: '🐶' };
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreX   = document.getElementById('scoreX');
+const scoreO   = document.getElementById('scoreO');
 
 let state = createInitialState();
+let scores  = { X: 0, O: 0 };
 
 function render() {
   cells.forEach((cell, i) => {
@@ -43,6 +46,9 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
+      scores[result.winner]++;
+      scoreX.textContent = scores.X;
+      scoreO.textContent = scores.O;
       setStatus(`${EMOJI_MAP[result.winner]} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
