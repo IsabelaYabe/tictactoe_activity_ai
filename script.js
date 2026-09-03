@@ -8,11 +8,19 @@ function getSymbol(player) {
   return player === 'X' ? '🐱' : '🐶';
 }
 
-const cells    = document.querySelectorAll('.cell');
-const status   = document.getElementById('status');
-const restartBtn     = document.getElementById('restart');
+const cells        = document.querySelectorAll('.cell');
+const status       = document.getElementById('status');
+const restartBtn   = document.getElementById('restart');
+const scoreElX     = document.getElementById('score-x');
+const scoreElO     = document.getElementById('score-o');
 
 let state = createInitialState();
+let scores = { X: 0, O: 0 };
+
+function updateScoreboard() {
+  scoreElX.textContent = scores.X;
+  scoreElO.textContent = scores.O;
+}
 
 function render() {
   cells.forEach((cell, i) => {
@@ -46,6 +54,8 @@ function handleClick(e) {
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`Player ${getSymbol(result.winner)} wins!`, 'win');
+      scores[result.winner]++;
+      updateScoreboard();
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -61,6 +71,7 @@ function handleClick(e) {
 function restartGame() {
   state = createInitialState();
   render();
+  updateScoreboard();
   setStatus(`Player ${getSymbol(state.current)}'s turn`);
 }
 
@@ -69,4 +80,5 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
+updateScoreboard();
 setStatus(`Player ${getSymbol(state.current)}'s turn`);
