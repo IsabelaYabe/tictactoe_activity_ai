@@ -1,22 +1,27 @@
-# Implementation Report
+# REPORT.md — Substituição de Símbolos (🐱 e 🐶)
 
-> A concise summary for the reviewer.
+## Objetivo
+Substituir os símbolos tradicionais **X** e **O** do jogo da velha pelos emojis **🐱 (cat face)** e **🐶 (dog face)**, respectivamente, mantendo toda a lógica do jogo inalterada.
 
-**Reviewer note**: If a PR modifies `.brainsback/<task-folder>/TODO.md` or `.brainsback/<task-folder>/REACTO.md`, assume this is expected and that those files were modified by the human developer.
-If present, use `.github/agents/brainsback-reviewer.md` as the review rubric.
+## Arquivos modificados
 
-## Snapshot
-- **Change**: 
-- **Status**: 
+### `script.js`
+- Adicionada a função `getSymbol(player)` que mapeia o identificador interno (`'X'` → `'🐱'`, `'O'` → `'🐶'`) para o emoji correspondente.
+- `render()` agora chama `getSymbol(state.board[i])` ao definir `cell.textContent`.
+- Mensagens de status (`setStatus`) passam a exibir o emoji via `getSymbol(result.winner)` e `getSymbol(state.current)`.
+- A lógica interna do jogo (`'X'` e `'O'` como strings) permanece intacta em `game.js`.
 
-## The Changes
-- [ ] 
+### `index.html`
+- Texto inicial do status alterado de `"Player X's turn"` para `"Player 🐱's turn"`.
 
-## Testing Strategy
-_How we ensured it works._
+## Arquivos **não** modificados
+- `game.js` — Nenhuma alteração. Os identificadores `'X'` e `'O'` permanecem como estão, pois são usados internamente para lógica do jogo (vez do jogador, verificação de vitória, etc.).
+- `style.css` — Nenhuma alteração. As classes CSS `.cell.x` e `.cell.o` continuam funcionando para estilização.
+- `tests/game.test.js` — Nenhuma alteração. Os testes comparam strings internas (`'X'` e `'O'`), que não mudaram.
 
-## Risks & Follow-up
-- [ ] 
+## Testes
+- **31 testes executados, 31 passaram, 0 falhas** — mesmo resultado antes e depois da alteração.
+- A interface foi verificada manualmente no navegador: o emoji 🐱 aparece no lugar do X, o 🐶 no lugar do O, e o rodízio de turnos funciona corretamente.
 
----
-**Note**: Usually filled by the AI.
+## Limitações / Riscos conhecidos
+- Nenhum. A separação entre lógica (`game.js`) e apresentação (`script.js`) permitiu uma substituição limpa e segura.
